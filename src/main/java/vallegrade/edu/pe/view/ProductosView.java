@@ -5,35 +5,37 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class ClienteView extends JFrame {
+public class ProductosView extends JPanel {
+
     private JTextField txtNombre;
-    private JTextField txtTelefono;
+    private JTextField txtPrecio;
+    private JTextField txtCantidad;
     private JButton btnAgregar;
     private JButton btnEliminar;
-    private JTable tablaClientes;
+    private JTable tablaProductos;
     private DefaultTableModel modeloTabla;
 
-    public ClienteView() {
-        setTitle("Gestión de Clientes - Aplicación MVC");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 450);
-        setLocationRelativeTo(null); // Centrar ventana
+    public ProductosView() {
+        setLayout(new BorderLayout());
 
         // Panel principal con margen
         JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
         panelPrincipal.setBorder(new EmptyBorder(15, 15, 15, 15));
-        setContentPane(panelPrincipal);
+        add(panelPrincipal);
 
         // Panel formulario (arriba)
-        JPanel panelFormulario = new JPanel();
-        panelFormulario.setLayout(new GridBagLayout());
+        JPanel panelFormulario = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel lblNombre = new JLabel("Nombre:");
         txtNombre = new JTextField(20);
-        JLabel lblTelefono = new JLabel("Teléfono:");
-        txtTelefono = new JTextField(15);
+
+        JLabel lblPrecio = new JLabel("Precio:");
+        txtPrecio = new JTextField(10);
+
+        JLabel lblCantidad = new JLabel("Cantidad:");
+        txtCantidad = new JTextField(5);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -47,11 +49,20 @@ public class ClienteView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.EAST;
-        panelFormulario.add(lblTelefono, gbc);
+        panelFormulario.add(lblPrecio, gbc);
 
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        panelFormulario.add(txtTelefono, gbc);
+        panelFormulario.add(txtPrecio, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        panelFormulario.add(lblCantidad, gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        panelFormulario.add(txtCantidad, gbc);
 
         panelPrincipal.add(panelFormulario, BorderLayout.NORTH);
 
@@ -61,7 +72,6 @@ public class ClienteView extends JFrame {
         btnAgregar = new JButton("Agregar");
         btnEliminar = new JButton("Eliminar");
 
-        // Agregar iconos simples
         btnAgregar.setIcon(UIManager.getIcon("FileChooser.newFolderIcon"));
         btnEliminar.setIcon(UIManager.getIcon("OptionPane.errorIcon"));
 
@@ -74,9 +84,9 @@ public class ClienteView extends JFrame {
         panelPrincipal.add(panelBotones, BorderLayout.CENTER);
 
         // Tabla (abajo)
-        modeloTabla = new DefaultTableModel(new Object[]{"Nombre", "Teléfono"}, 0);
-        tablaClientes = new JTable(modeloTabla);
-        JScrollPane scrollPane = new JScrollPane(tablaClientes);
+        modeloTabla = new DefaultTableModel(new Object[]{"Nombre", "Precio", "Cantidad"}, 0);
+        tablaProductos = new JTable(modeloTabla);
+        JScrollPane scrollPane = new JScrollPane(tablaProductos);
 
         panelPrincipal.add(scrollPane, BorderLayout.SOUTH);
     }
@@ -87,28 +97,33 @@ public class ClienteView extends JFrame {
         return txtNombre.getText().trim();
     }
 
-    public String getTelefono() {
-        return txtTelefono.getText().trim();
+    public String getPrecio() {
+        return txtPrecio.getText().trim();
+    }
+
+    public String getCantidad() {
+        return txtCantidad.getText().trim();
     }
 
     public void limpiarCampos() {
         txtNombre.setText("");
-        txtTelefono.setText("");
+        txtPrecio.setText("");
+        txtCantidad.setText("");
     }
 
-    public void agregarClienteTabla(String nombre, String telefono) {
-        modeloTabla.addRow(new Object[]{nombre, telefono});
+    public void agregarProductoTabla(String nombre, String precio, String cantidad) {
+        modeloTabla.addRow(new Object[]{nombre, precio, cantidad});
     }
 
-    public int getClienteSeleccionado() {
-        return tablaClientes.getSelectedRow();
+    public int getProductoSeleccionado() {
+        return tablaProductos.getSelectedRow();
     }
 
-    public void eliminarClienteTabla(int index) {
+    public void eliminarProductoTabla(int index) {
         modeloTabla.removeRow(index);
     }
 
-    // Getters botones para el controller
+    // Getters botones para el controlador
 
     public JButton getBtnAgregar() {
         return btnAgregar;

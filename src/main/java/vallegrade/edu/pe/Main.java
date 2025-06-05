@@ -1,16 +1,14 @@
 package vallegrade.edu.pe;
 
-import vallegrade.edu.pe.controller.MainMenuController;
-import vallegrade.edu.pe.view.MainMenuView;
-
-import javax.swing.SwingUtilities;
+import vallegrade.edu.pe.controller.MenuController;
+import vallegrade.edu.pe.view.MenuView;
 
 public class Main {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainMenuView view = new MainMenuView();
-            MainMenuController controller = new MainMenuController(view);
-            view.setVisible(true);
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            MenuView menuView = new MenuView();
+            new MenuController(menuView);
+            menuView.setVisible(true);
         });
     }
 }

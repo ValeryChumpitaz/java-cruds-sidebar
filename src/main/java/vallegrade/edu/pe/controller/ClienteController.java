@@ -2,15 +2,15 @@ package vallegrade.edu.pe.controller;
 
 import vallegrade.edu.pe.model.Cliente;
 import vallegrade.edu.pe.service.ClienteService;
-import vallegrade.edu.pe.view.ClienteView;
+import vallegrade.edu.pe.view.ClientesView;
 
 import javax.swing.*;
 
 public class ClienteController {
-    private ClienteView view;
+    private ClientesView view;
     private ClienteService service;
 
-    public ClienteController(ClienteView view, ClienteService service) {
+    public ClienteController(ClientesView view, ClienteService service) {
         this.view = view;
         this.service = service;
 
